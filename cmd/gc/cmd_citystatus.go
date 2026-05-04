@@ -105,7 +105,7 @@ func cmdCityStatus(args []string, jsonOutput bool, stdout, stderr io.Writer) int
 		return 1
 	}
 
-	sp := newSessionProvider()
+	sp := newStatusSessionProviderForCity(cfg, cityPath)
 	dops := newDrainOps(sp)
 	if jsonOutput {
 		return doCityStatusJSON(sp, cfg, cityPath, stdout, stderr)
