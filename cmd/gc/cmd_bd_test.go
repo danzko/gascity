@@ -636,6 +636,9 @@ name = "demo"
 		t.Fatal(err)
 	}
 	t.Setenv("GC_CITY_PATH", cityDir)
+	// The test is for an unscoped provider override; inherited agent
+	// sessions may carry GC_BEADS_SCOPE_ROOT for a different city.
+	t.Setenv("GC_BEADS_SCOPE_ROOT", "")
 	t.Setenv("GC_BEADS", "file")
 
 	var stdout, stderr bytes.Buffer
