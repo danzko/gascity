@@ -122,7 +122,10 @@ func observeSessionTargetWithWarning(
 	target string,
 	stderr io.Writer,
 ) worker.LiveObservation {
-	obs, err := observeSessionTargetForStatus(cityPath, store, sp, cfg, target)
+	// Status already passes a concrete runtime session name. Resolving that
+	// string back through the bead store turns stopped pool instances such as
+	// "dog-1" into invalid bd show lookups, which can block the overview.
+	obs, err := observeSessionTargetForStatus(cityPath, nil, sp, cfg, target)
 	if err != nil && stderr != nil {
 		fmt.Fprintf(stderr, "%s: observing %q: %v\n", cmdName, target, err) //nolint:errcheck // best-effort stderr
 	}
